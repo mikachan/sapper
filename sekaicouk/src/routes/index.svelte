@@ -1,5 +1,5 @@
 <script context="module">
-	import { apiEndpoint, linkResolver } from '../../../prismic-configuration';
+	import { apiEndpoint, linkResolver } from '../../prismic-configuration';
 	import Prismic from 'prismic-javascript';
 	import { Date, RichText } from 'prismic-dom';
 
@@ -22,7 +22,7 @@
 					});
 				},
 				err => {
-					console.warn('Something went wrong: ', err);
+					console.warn('Error: ', err);
 				}
 			);
 
@@ -81,19 +81,21 @@
 	<figcaption>HIGH FIVE!</figcaption>
 </figure>
 
-{#each posts as post}
-	{console.log(post)}
-	<div>
-		<h2>{RichText.asText(post.data.title, linkResolver)}</h2>
+<div class="container mx-auto">
+	{#each posts as post}
+		{console.log(post)}
+		<div>
+			<h2>{RichText.asText(post.data.title, linkResolver)}</h2>
 
-		<p>
-			Date: {Intl.DateTimeFormat('en-GB', {
-				year: 'numeric',
-				month: 'short',
-				day: '2-digit',
-			}).format(Date(post.first_publication_date))}
-		</p>
+			<p class="bg-gray-600">
+				Date: {Intl.DateTimeFormat('en-GB', {
+					year: 'numeric',
+					month: 'short',
+					day: '2-digit',
+				}).format(Date(post.first_publication_date))}
+			</p>
 
-		<div>{RichText.asText(post.data.content, linkResolver)}</div>
-	</div>
-{/each}
+			<div>{RichText.asText(post.data.content, linkResolver)}</div>
+		</div>
+	{/each}
+</div>
