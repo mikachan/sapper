@@ -18,7 +18,10 @@
 			.then(
 				response => {
 					response.results.forEach(result => {
-						posts.push(result);
+						const currentItem = result;
+
+						posts.findIndex(x => x.id == currentItem.id) == -1 &&
+							posts.push(currentItem);
 					});
 				},
 				err => {
@@ -80,11 +83,11 @@
 	<img alt="Borat" src="" />
 	<figcaption>HIGH FIVE!</figcaption>
 </figure>
-
+{console.log(posts)}
 <div class="container mx-auto">
 	{#each posts as post}
-		{console.log(post)}
 		<div>
+			<a href={`/post/${post.uid}`}>Permalink</a>
 			<h2>{RichText.asText(post.data.title, linkResolver)}</h2>
 
 			<p class="bg-gray-600">
